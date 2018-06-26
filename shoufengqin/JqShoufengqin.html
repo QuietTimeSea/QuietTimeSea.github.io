@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>用jq写的手风琴</title>
+		<script src="js/jquery-1.12.4.js"></script>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			ul {
+				list-style: none;
+			}
+			
+			#box {
+				width: 1150px;
+				height: 400px;
+				margin: 50px auto;
+				border: 1px solid red;
+				overflow: hidden;
+			}
+			
+			#box ul {
+				width: 1300px;
+			}
+			
+			#box ul li {
+				width: 240px;
+				height: 400px;
+				float: left;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box">
+			<ul>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+		</div>
+	</body>
+	<script>
+		$(function(){
+			var $li = $("#box li");
+			for(var i=0;i<$li.length;i++){
+				$li.eq(i).css("background","url(img/"+(i+1)+".jpg)");
+			}
+			
+			$li.mouseenter(function(){
+				$(this).stop().animate({width:"800px"}).siblings().stop().animate({width:"100px"})
+			}).mouseleave(function(){
+				$li.stop().animate({width:"240px"});
+			})
+			
+		})
+	</script>
+</html>

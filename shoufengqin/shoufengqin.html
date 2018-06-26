@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>js写的手风琴</title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			ul {
+				list-style: none;
+			}
+			
+			#box {
+				width: 1150px;
+				height: 400px;
+				margin: 50px auto;
+				border: 1px solid red;
+				overflow: hidden;
+			}
+			#box ul {
+				width: 1300px;
+			}
+			
+			#box ul li {
+				width: 240px;
+				height: 400px;
+				float: left;
+			}
+		</style>
+
+	</head>
+
+	<body>
+		<div id="box">
+			<ul>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+		</div>
+	</body>
+	   <script>
+            window.onload = function(){
+	            		            /*
+				 * 实现动画的步骤:
+				 1.怎样得到当前的样式  封装一个函数 getStyle()
+				 2.步长的计算  用(目标位置 - 当前的样式) / 10
+				 3. 缓动动画原理:  盒子本身的样式 + 步长(不断变化的)
+				 */
+				/*
+				 * css设置透明度，一般在ie中用的是filter:alpha(opacity=0);
+				而在firefox中，一般就是直接使用opacity:0
+				*/
+				// 多个属性的运动框架 以及添加回调函数
+				function animate(obj,json,fn){  // 目标obj   json 属性：属性值  fn回调函数
+				    clearInterval(obj.timer);
+				    obj.timer = setInterval(function(){
+				        var flag = true;// 用来判断是否停止定时器  
+				        // 遍历json
+				        for (var attr in json) {  //attr 属性  json[attr]值
+				            var curStyle = 0;
+				            if (attr == "opacity") {
+				                curStyle = parseInt(getStyle(obj,attr)*100);
+				            } else{
+				                curStyle = parseInt(getStyle(obj,attr));// 获得数值
+				            }
+				            // 得到步长  目标位置就是json[attr]
+				            var step = (json[attr]-curStyle) / 10;
+				            step = step > 0 ? Math.ceil(step) :Math.floor(step);
+				
+				            // 判断透明度
+				            if (attr == "opacity") { // 判断用户有没有输入opacity
+				                if ("opacity" in obj.style) { 
+				                    obj.style.opacity = (curStyle + step) / 100;
+				                } else{
+				                    obj.style.filter = "alpha(opacity="+(curStyle +step)+")";
+				                }
+				
+				            } else if(attr == "zIndex"){
+				                obj.style.zIndex = json[attr];
+				            } else{
+				                obj.style[attr] = curStyle +step +"px";
+				            }
+				            // 判断是否已经都到了目标位置   只要其中一个不满足条件 就不应该停止定时器
+				            if (curStyle != json[attr]) {
+				                flag = false;
+				            }
+				        }
+				        // 判断定时器条件 是否该停止了
+				        if (flag) {
+				            clearInterval(obj.timer)
+				            // 当定时器停止后，动画也就结束了.如果有回调函数就执行回调函数
+				            if(fn){
+				                fn();
+				            }
+				        }
+				    },30);
+				}
+				
+				// 封装函数 得到属性
+				function getStyle(obj,attr) {  //  谁的      那个属性
+				    if(obj.currentStyle)  // ie 等
+				    {
+				        return obj.currentStyle[attr];  // 返回传递过来的某个属性
+				    }
+				    else
+				    {
+				        return window.getComputedStyle(obj,null)[attr];  // w3c 浏览器
+				    }
+				}
+				
+				
+				
+                var box = document.getElementById("box");
+                var lis = box.children[0].children;
+                for (var i = 0; i < lis.length;i++) {
+                    lis[i].style.backgroundImage = "url(img/"+(i+1)+".jpg)";
+                    lis[i].onmouseover = function(){
+                        for (var j = 0; j < lis.length;j++) {
+                            animate(lis[j],{width:100});
+                        }
+                        animate(this,{width:800});
+                    }
+                    lis[i].onmouseout = function(){
+                        for (var k = 0; k < lis.length;k++) {
+                            animate(lis[k],{width:240});
+                        }
+                    }
+                }
+            }
+        </script>
+</html>
