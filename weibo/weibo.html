@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>微博发布jq版</title>
+<meta name="Keywords" content="">
+<meta name="author" content="@my_programmer">
+<script src="http://code.jquery.com/jquery-1.8.0.min.js" type="text/javascript"></script>
+<style type="text/css">
+/*重置{*/
+html{color:#000;background:#fff;}
+body,div,ul,li,h1,input,button,textarea{padding:0;margin:0;}
+img{border:0;}
+li{list-style:none;}
+/*}重置*/
+h1{margin:20px auto 0;font-size:30px;width:200px;text-align:center;color:blue;}
+#outer{position:relative;width:400px;margin:auto;margin:20px auto 10px;}
+#test1{display:block;width:400px;height:70px;}
+.error{background:#f00;width:400px;height:50px;position:absolute;left:1px;top:10px;opacity:0.6;filter:alpha(opacity=60);}
+#test2{display:block;margin:0 auto;width:60px;height:30px;font-size:20px;}
+.test3{margin:10px auto;width:400px;}
+#test3{border:1px #444 solid;width:400px;min-height:300px;_height:300px;padding-bottom:10px;color:blue;float:left;}
+.test{border-bottom:1px blue dotted;width:383px;padding:10px 5px 5px 10px;float:left;}
+.inf{margin-top:15px;float:right;color:#555;}
+.con{margin-left:16px;display:inline;width:304px;float:left;word-break:break-all;}
+.bu{margin-left:6px;display:inline;}
+.imgs{width:60px;height:60px;float:left;}
+.imgInf{width:120px;background:#f0f;color:#fff;position:absolute;z-index:2;left:-65px;top:62px;opacity:0.5;filter:alpha(opacity=50);}
+.finish{background:green;width:300px;height:50px;color:#ff0;font-size:30px;text-align:center;line-height:50px;position:absolute;left:50px;top:10px;opacity:0.6;filter:alpha(opacity=60);}
+.imgOut{position:relative;}
+
+</style>
+</head>
+<body>
+    <h1>微博发布</h1>
+    <div id="outer">
+        <textarea  id="test1" ></textarea>
+    </div>
+    <input type="button" id="test2" value="发布"/>
+    <div class="test3"><div id="test3"></div></div>
+
+<script type="text/javascript">
+<!--
+    $('#test2').click(function(){                        //点击发布的事件
+        if($('#test1')[0].value==""){
+            var finish=$('<div class="error"></div>').appendTo($('#outer')).hide().fadeIn(200).fadeOut(200).fadeIn(200).fadeOut(200);
+            return;
+        }else{
+            $('#test2')[0].disabled=true;                //发布成功后，禁止
+            var timer=new Date();
+            //微博
+            $('<div class="test"><span class="imgOut"><img src="images/wukong.gif" class="imgs"/></span><div class="con"></div><div class="inf">'+timer.getHours()+"时"+timer.getMinutes()+"分"+timer.getSeconds()+"秒"+'<input type="button" value="删除" class="bu"/></div></div>').prependTo($('#test3'));
+            $('.con')[0].innerText=$('#test1')[0].value;
+            //头像信息
+            $('.imgs:eq(0)').hover(
+                function(){$('<ul class="imgInf"><li>名字：悟空</li><li>称号：战斗圣佛</li><li>现居：花果山</li></ul>').appendTo($(this).parent());},
+                function(){$('.imgInf').remove();}
+            )
+            //清空
+            $('#test1')[0].value="";
+            //发布成功时动画
+            $('<div class="finish">发布成功</div>').appendTo($('#outer')).hide().fadeIn(500).fadeOut(500,function(){$('#test2')[0].disabled=false;});
+            //插入节点时的动画效果
+            console.log($('.test:first'))
+            $('.test:first').hide().slideDown("slow");
+            //删除按钮的事件
+            $('.bu:eq(0)').click(function(){
+                if(confirm('确定删除吗？')){
+                    $(this).parent().parent().hide(1000,function(){    
+                        $(this).remove();                    
+                    });
+                }
+            });
+        }
+    })
+//--> 
+</script>
+</body>
+</html>
