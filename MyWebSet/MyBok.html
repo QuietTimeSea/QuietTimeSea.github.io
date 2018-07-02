@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<title>我的博客</title>
+		<link href="lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
+		<script type="text/javascript" src="lib/jquery/jquery-1.12.4.js"></script>
+		<script type="text/javascript" src="lib/bootstrap/js/bootstrap.min.js"></script>
+		<script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+		<script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+				list-style: none;
+				text-decoration: none;
+			}
+			.container {
+				width: 1000px;
+				margin: 100px auto 0 auto;
+				box-shadow: -2px -1px 5px #666;
+			}
+			header{
+				margin: -20px -15px 0 -15px;
+				position: relative;
+				background: url(img/ibodybg.png) top right no-repeat;
+			}
+			header h1 {
+				padding: 15px 0 0 80px;
+				font-size: 20px;
+				font-family: "Microsoft Yahei", Arial, Helvetica, sans-serif;
+			}
+			header h2 {
+				font-size: 100%;
+				margin: 20px 80px;
+				color: #8e8d8d;
+			}
+			.navClass {
+				background: rgba(0, 0, 0, 0.8);
+				height: 48px;
+				line-height: 48px;
+				padding-left: 80px;
+				margin-bottom:0 ;
+				border: 0;
+			}
+			article {
+			    width: 73%;
+			    float: left;
+			}
+			aside{
+				width: 27.8%;
+				margin-right: -15px;
+				float: right;
+				background: url(img/ibodybg.png) -170px -147px no-repeat #000;
+			}
+			.headePhoto{
+				width: 160px;
+				height: 160px;
+				margin: 10px auto;
+				border-radius: 100%;
+				overflow: hidden;
+				
+			}
+			.headePhoto a{
+				display: block;
+				width: 160px;
+				height: 160px;
+				padding-top:100px ;
+				background: url(img/photos.jpg) no-repeat;
+				background-size: 160px 160px;
+				
+			}
+			.headePhoto a span{
+				display: block;
+				margin-top: 63px;
+				padding-top: 8px;
+				width: 160px;
+				height: 61px;
+				text-align: center;
+				line-height: 20px;
+				color: #fff;
+				background: rgba(0,0,0,0.5);
+				transition: 0.2s ease-in;
+			}
+			.headePhoto:hover span{
+				transform: translateY(-63px);
+			}
+			.topspaceinfo{
+				background: #e41635;
+    			padding: 30px 20px;
+   				color: #fff;
+    			text-shadow: 1px 1px rgba(0,0,0,.3);
+			}
+			.topspaceinfo h1{
+				font-size: 16px;
+				line-height: 20px;
+				font-weight: bold;
+			}
+			.topspaceinfo p{
+				font-size: 12px;
+			}
+			.about_c{
+				margin: 10px 0;
+    			color: #fff;
+   				line-height: 26px;
+			}
+			.about_c p{
+				display: block;
+				padding-left: 40px;
+				font-size: 12px;
+				margin-bottom: 0px;
+			}
+			.about_c p:first-child{
+				background: url(img/about_c.png) 15px 6px no-repeat;
+			}
+			.about_c p:nth-child(2){
+				background: url(img/about_c.png) 15px -20px no-repeat;
+			}
+			.about_c p:nth-child(3){
+				background: url(img/about_c.png) 15px -48px no-repeat;
+			}
+			.about_c p:nth-child(4){
+				background: url(img/about_c.png) 15px -70px no-repeat;
+			}
+			.about_c p:nth-child(5){
+				background: url(img/about_c.png) 15px -97px no-repeat;
+			}
+			.fenxiang{
+				width: 230px;
+				height: 44px;
+				margin: 20px;
+			}
+			.fenxiang a{
+				float: left;
+				margin-left: 10px;
+				width: 32px;
+				line-height: 32px;
+				height: 32px;
+				background:url(img/fenxiang.png) no-repeat;
+				overflow: hidden;
+			}
+			.fenxiang a:nth-child(1){
+				background-position: 0px 0px;
+			}
+			.fenxiang a:nth-child(2){
+				background-position: -40px 0px;
+			}
+			.fenxiang a:nth-child(3){
+				background-position: -77px 0px;
+			}
+			.fenxiang a:nth-child(4){
+				background-position: -156px 0px;
+			}
+			.fenxiang a:nth-child(5){
+				background-position: -189px 0px;
+			}
+			.fenxiang::after{
+				content: ".";
+			    visibility: hidden;
+			    display: block;
+			    height: 0;
+			    clear: both;
+			}
+			.news h2{
+				font-size: 16px;
+			    font-family: "Microsoft Yahei", Arial, Helvetica, sans-serif;
+			    color: #FFF;
+			}
+			
+			.banner{
+				background: url(img/banner.jpg) no-repeat center;
+				background-size: 100% 100%;
+			    height: 290px;
+			    margin: 10px auto;
+			    width: 100%;
+			    font-size: 16px;
+			    font-family: "Microsoft Yahei", Arial, Helvetica, sans-serif;
+			}
+			.text{
+				line-height: 36px;
+			    padding: 90px 0 0 40px;
+			    text-shadow: 1px 1px rgba(255,255,255,0.3);
+			}
+			.blogList h2{
+				border-bottom: #474645 2px solid;
+				margin: 0 8px 20px 8px;
+				height: 26px;
+				overflow: hidden;
+				line-height: 28px;
+				font-size: 16px;
+				font-family: "Microsoft Yahei", Arial, Helvetica, sans-serif;
+    			letter-spacing: 2px;
+			}
+			.blogList h2 p{
+				background: #474645;
+				width: 180px;
+				color: #fff;
+				text-align: center;
+				box-shadow: #999 4px 5px 1px;
+			}
+			.blogList h2 p span{
+				padding: 0;
+				margin: 0;
+				color:#38b3d4;
+			}
+			.blogs{
+				margin: 0 20px 20px 20px;
+    			position: relative;
+			}
+			.blogs::before{
+				content: "";
+			    width: 15px;
+			    height: 15px;
+			    border-radius: 50%;
+			    position: absolute;
+			    background: #cac1c1;
+			    border: 2px solid #fff;
+			    left: -40px;
+			    -webkit-transition: all 1s;
+			    -moz-transition: all 1s;
+			    -o-transition: all 1s;
+			    transition: all 1s;
+			}
+			.blogs h3{
+				font-size: 14px;
+				font-weight: bold;
+				margin-bottom: 15px;
+				transition: all 0.5s;
+			}
+			.blogs h3 a{
+				color: #474645;
+			}
+			.blogs figure{
+				float: left;
+				width: 25%;
+				overflow: hidden;
+			}
+			.blogs figure img{
+				width: 100%;
+				margin: auto;
+				transition: 0.5s;
+			}
+			.blogs figure img:hover{
+				transform: scale(1.1);
+			}
+			.blogs ul{
+				list-style: none;
+				float: right;
+				line-height: 20px;
+				width: 72%;
+				color: #474645;
+				font-size: 12px;
+			}
+			.readmore{
+				background:#e41635;
+				padding: 5px 10px;
+				margin: 20px 0 0 0 ;
+				color: #fff;
+				float: right;
+				font-size: 14px;
+			}
+			.autor{
+				overflow: hidden;
+				clear: both;
+				margin: 10px 0 0 0 !important;
+				display: inline-block;
+				line-height: 26px;
+				height: 26px;
+				color: #838383;
+				background: #f6f6f6;
+				width: 100%;
+			}
+			.autor span{
+				margin: 0 10px;
+			}
+			.dateview{
+				position: absolute;
+			    left: -145px;
+			    top: -4px;
+			    z-index: 1;
+			    color: #F5F5F5;
+			    opacity: 0;
+			    background: #122B40;
+			    transition: all 0.5s;
+			}
+			.dateview::after{
+				content: "";
+			    width: 121px;
+			    height: 29px;
+			    position: absolute;
+			    left: -13px;
+			    top: -5px;
+			    z-index: -1;
+			    background: #474645 url(img/ti.png) no-repeat;
+			}
+			.blogs:hover .dateview{
+				opacity: 0.9;
+			}
+			
+			@media only screen and (max-width:1000px ) {
+				.container{
+					width: 100%;
+				}
+				header{
+					background: url(img/ms8.png) top right no-repeat;
+				}
+				header{
+					margin: 0;
+				}
+				article{
+					width: 100%
+				}
+				.banner{
+					width: 100%;
+					height: 290px;
+				}
+				aside{
+					display: none;
+				}
+			}
+			
+			@media only screen and (max-width:800px ) {
+				.container{
+					width: 100%;
+				}
+				header{
+					background: url(img/ms8.png) top right no-repeat;
+				}
+			}
+				@media only screen and (max-width: 768px) {
+				.navbar-toggle{
+					position: relative;
+					margin-top: 8px;
+				}
+				.navbar-nav{
+					float: right;
+				}
+				.nav>li{
+					position: static;
+					display: block;
+					width: 100%;
+					text-align: center;
+					background: rgba(0,0,0,0.8);
+					margin-bottom: 2px;
+				}
+				.navbar-default .navbar-nav > li > a:hover{
+					color: #F9F2F4;
+				}
+			}
+			@media only screen and (max-width:600px ) {
+				body{
+					font: 12px "宋体", Arial, Helvetica, sans-serif;
+				}
+				.navClass{
+					padding-left: 0;
+					margin-left: -15px;
+					margin-right: -15px;
+				}
+				.navClass > .container-fluid{
+					margin-left: -15px;
+					margin-right: -15px;
+				}
+				.navbar-collapse{
+					width: 100%;
+					display: block;
+					padding-left:0 ;
+					padding-right: 0;
+				}
+				.nav>li{
+					position: static;
+					display: block;
+					width: 100%;
+					text-align: center;
+					background: rgba(0,0,0,0.8);
+					margin-bottom: 2px;
+				}
+				.navbar-default .navbar-nav > li > a:hover{
+					color: #F9F2F4;
+				}
+				header>h1{
+					display: none;
+				}
+				header>h2{
+					display: none;
+				}
+				.logo{
+					position: static !important;
+					margin: 0 auto;
+				}
+				.navbar-toggle{
+					display: none;
+				}
+				
+				.nav {
+					width: 100%;
+					display: block;
+				}
+				.text{
+					line-height: 36px;
+    				padding: 20px 0 0 10px;
+    				text-shadow: 1px 1px rgba(255,255,255,0.3);
+				}
+			}
+			@media only screen and (max-width:480px ) {
+				.blogs figure{
+					display: none;
+				}
+				.blogs ul{
+					width: 100%;
+				}
+			}
+			.logo {
+				background:no-repeat #000 center;
+				width: 145px;
+				height: 145px;
+				border-radius: 50%;
+				position: absolute;
+				left: -72px;
+				top: 40px;
+				box-shadow: 0px 2px 2px #414141;
+				z-index: 100;
+			}
+			
+		</style>
+	</head>
+
+	<body>
+		<div class="container">
+			<header>
+				<h1>如影随形</h1>
+				<h2>影子是一个会撒谎的精灵，它存在于不存在之间，在虚空中流浪和等待被发现。</h2>
+				<div class="logo">
+				<a href="#"></a>
+			</div>
+				<nav class="navbar navbar-default navClass" role="navigation">
+					<div class="container-fluid"> 
+						<div class="navbar-header">
+							<button type="button" class="navbar-toggle" data-toggle="collapse"
+									data-target="#example-navbar-collapse">
+								<span class="sr-only">切换导航</span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+							</button>
+						</div>
+						<div class="collapse navbar-collapse" id="example-navbar-collapse">
+							<ul class="nav navbar-nav">
+								<li ="">
+									<a href="classindex.html">Home</a>
+								</li>
+								<li>
+									<a href="#about">LifeStyle</a>
+								</li>
+								<li>
+									<a href="#contact">Travel</a>
+								</li>
+								<li>
+									<a href="about.html">About Me</a>
+								</li>
+								<li>
+									<a href="about.html">Contact</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</nav>
+			</header>
+			<article>
+				<div class="banner">
+					<ul class="text">
+						<p>The best life is use of willing attitude, a happy-go-lucky life. </p>
+						<p>最好的生活是用心甘情愿的态度，过随遇而安的生活。</p>
+					</ul>
+				</div>
+				<div class="blogList">
+					<h2>
+						<p>
+							<span>推荐</span>文章
+						</p>
+					</h2>
+					<div class="blogs">
+						<h3><a href="#">犯错了怎么办</a></h3>
+						<figure>
+							<img src="img/01.jpg"/>
+						</figure>
+						<ul>
+							<p>看到昔日好友发了一篇日志《咎由自取》他说他是一个悲观者，
+								感觉社会抛弃了他，脾气、性格在6年的时间里变化很大，很难适应这个社会。人生其实就是不断犯错的过程，
+								在这个过程中不断的犯错，不断的吸取教训，
+								不断的成长。也许日子里的惊涛骇浪，不过是人生中的水花摇晃，别用显微镜放大你的悲伤。
+							</p>
+							<a href="#" class="readmore">阅读全文>></a>
+						</ul>
+						<p class="autor">
+							<span>作者：xxx</span>
+							<span>分类：【
+									<a href="#">日记</a>							
+								】
+							</span>
+							<span>
+								浏览（<a href="#">459</a>）
+							</span>
+							<span>
+								评论（<a href="#">40</a>）
+							</span>
+						</p>
+						<div class="dateview">2014-04-08</div>
+					</div>
+					<div class="blogs">
+						<h3><a href="#">犯错了怎么办</a></h3>
+						<figure>
+							<img src="img/01.jpg"/>
+						</figure>
+						<ul>
+							<p>看到昔日好友发了一篇日志《咎由自取》他说他是一个悲观者，
+								感觉社会抛弃了他，脾气、性格在6年的时间里变化很大，很难适应这个社会。人生其实就是不断犯错的过程，
+								在这个过程中不断的犯错，不断的吸取教训，
+								不断的成长。也许日子里的惊涛骇浪，不过是人生中的水花摇晃，别用显微镜放大你的悲伤。
+							</p>
+							<a href="#" class="readmore">阅读全文>></a>
+						</ul>
+						<p class="autor">
+							<span>作者：xxx</span>
+							<span>分类：【
+									<a href="#">日记</a>							
+								】
+							</span>
+							<span>
+								浏览（<a href="#">459</a>）
+							</span>
+							<span>
+								评论（<a href="#">40</a>）
+							</span>
+						</p>
+						<div class="dateview">2014-04-08</div>
+					</div>
+					<div class="blogs">
+						<h3><a href="#">犯错了怎么办</a></h3>
+						<figure>
+							<img src="img/01.jpg"/>
+						</figure>
+						<ul>
+							<p>看到昔日好友发了一篇日志《咎由自取》他说他是一个悲观者，
+								感觉社会抛弃了他，脾气、性格在6年的时间里变化很大，很难适应这个社会。人生其实就是不断犯错的过程，
+								在这个过程中不断的犯错，不断的吸取教训，
+								不断的成长。也许日子里的惊涛骇浪，不过是人生中的水花摇晃，别用显微镜放大你的悲伤。
+							</p>
+							<a href="#" class="readmore">阅读全文>></a>
+						</ul>
+						<p class="autor">
+							<span>作者：xxx</span>
+							<span>分类：【
+									<a href="#">日记</a>							
+								】
+							</span>
+							<span>
+								浏览（<a href="#">459</a>）
+							</span>
+							<span>
+								评论（<a href="#">40</a>）
+							</span>
+						</p>
+						<div class="dateview">2014-04-08</div>
+					</div>
+					
+				</div>
+			</article>
+			<aside>
+				<div class="headePhoto">
+					<a href="#">
+						<span id="">
+							关于我
+						</span>
+					</a>
+				</div>
+				<div class="topspaceinfo">
+					<h1>执子之手，与子偕老</h1>
+					<p>于千万人之中，我遇见了我所遇见的人....</p>
+				</div>
+				<div class="about_c">
+					<p>网名：DanceSmile | 即步非烟</p>
+					<p>职业：Web前端工程师</p>
+					<p>籍贯：四川省—成都市</p>
+					<p>电话：13662012345</p>
+					<p>邮箱：dancesmiling@qq.com</p>
+				</div>
+				<div class="fenxiang">
+					<a href="#" title="分享到qq空间"></a>
+					<a href="#" title="分享到新浪微博"></a>
+					<a href="#" title="分享到腾讯微博"></a>
+					<a href="#" title="分享到朋友圈"></a>
+					<a href="#" title="more"></a>
+				</div>
+				<div class="news">
+					<h2>
+						<p>最新文章</p>
+					</h2>
+				</div>
+			</aside>
+		</div>
+	</body>
+
+</html>
